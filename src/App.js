@@ -5,7 +5,7 @@ import {
   Route,
 } from 'react-router-dom';
 import Chat from './containers/Chat.jsx';
-import Auth from './containers/Auth.jsx';
+import Login from './containers/Login.jsx';
 import NotFound from './containers/NotFound.jsx';
 import Navbar from './components/Navbar.jsx';
 
@@ -16,10 +16,10 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Chat />} />
-          <Route path="login" element={<Auth />} />
+          <Route path="login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-    </div>
+    </div >
   );
 }
