@@ -11,11 +11,6 @@
     "start": "fastify start server/plugin.js -l info -P -a 0.0.0.0"
   },
   "jest": {
-    "verbose": true,
-    "testEnvironment": "jsdom",
-    "testEnvironmentOptions": {
-      "url": "http://localhost/"
-    },
     "transform": {}
   },
   "repository": {
