@@ -1,12 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import cn from 'classnames';
+import AuthContext from '../contexts/AuthContext.js';
 
 const LoginForm = ({ layoutClass }) => {
   const [errors, setErrors] = React.useState({});
   const target = useRef(null);
+  const { loginUser } = useContext(AuthContext);
 
   const formik = useFormik({
     initialValues: {
@@ -16,8 +18,7 @@ const LoginForm = ({ layoutClass }) => {
     onSubmit: async (values) => {
       try {
         const response = await axios.post('/api/v1/login', values);
-        localStorage.setItem('token', response.data.token);
-        window.location.replace('/');
+        loginUser(response.data.token);
         setErrors({});
       } catch (e) {
         setErrors({ request: 'Неверные имя пользователя или пароль' });

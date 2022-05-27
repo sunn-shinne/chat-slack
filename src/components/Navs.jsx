@@ -1,22 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Navbar, Container, Button } from 'react-bootstrap';
+import AuthContext from '../contexts/AuthContext.js';
 
-const logout = () => {
-  localStorage.removeItem('token');
-  window.location.replace('/login');
+const Navs = () => {
+  const { isAuthorized, logoutUser } = useContext(AuthContext);
+  return (
+    <Navbar bg="white">
+      <Container>
+        <Navbar.Brand href="/">Chat Slack</Navbar.Brand>
+        {isAuthorized && <Button variant="outline-primary" onClick={logoutUser}>Выйти</Button>}
+      </Container>
+    </Navbar>
+  );
 };
-
-const Navs = () => (
-  <Navbar bg="white">
-    <Container>
-      <Navbar.Brand href="/">Chat Slack</Navbar.Brand>
-      {
-        localStorage.getItem('token')
-          ? <Button variant="outline-primary" onClick={logout}>Выйти</Button>
-          : null
-      }
-    </Container>
-  </Navbar>
-);
 
 export default Navs;
