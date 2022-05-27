@@ -17,6 +17,7 @@ const LoginForm = ({ layoutClass }) => {
       try {
         const response = await axios.post('/api/v1/login', values);
         localStorage.setItem('token', response.data.token);
+        window.location.replace('/');
         setErrors({});
       } catch (e) {
         setErrors({ request: 'Неверные имя пользователя или пароль' });
@@ -58,13 +59,10 @@ const LoginForm = ({ layoutClass }) => {
             onChange={formik.handleChange}
             autoComplete="off"
           />
-
           <Form.Control.Feedback type="invalid" tooltip>
             {errors.request}
           </Form.Control.Feedback>
-
         </Form.FloatingLabel>
-
       </Form.Group>
 
       <Button ref={target} type="submit" variant="outline-primary" className="w-100 mb-3">
