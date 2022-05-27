@@ -18,3 +18,8 @@ make install
 ```
 make test
 ```
+
+## Run app
+```
+make start
+```
