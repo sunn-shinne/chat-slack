@@ -9,17 +9,15 @@ import Login from './containers/Login.jsx';
 import NotFound from './containers/NotFound.jsx';
 import Navbar from './components/Navbar.jsx';
 
-export default function App() {
-  return (
-    <div className="d-flex flex-column h-100">
-      <Navbar />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Chat />} />
-          <Route path="login" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </div >
-  );
-}
+export default () => (
+  <div className="d-flex flex-column h-100">
+    <Navbar />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Chat />} />
+        <Route path="login" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  </div>
+);
