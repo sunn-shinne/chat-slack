@@ -1,14 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Navbar, Container, Button } from 'react-bootstrap';
-import AuthContext from '../contexts/AuthContext.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../slices/authSlice.js';
 
 const Navs = () => {
-  const { isAuthorized, logoutUser } = useContext(AuthContext);
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const handleLogout = () => dispatch(logoutUser());
+
   return (
     <Navbar bg="white">
       <Container>
         <Navbar.Brand href="/">Chat Slack</Navbar.Brand>
-        {isAuthorized && <Button variant="outline-primary" onClick={logoutUser}>Выйти</Button>}
+        {isLoggedIn && <Button variant="outline-primary" onClick={handleLogout}>Выйти</Button>}
       </Container>
     </Navbar>
   );

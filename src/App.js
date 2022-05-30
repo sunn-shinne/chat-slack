@@ -1,62 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter,
   Routes,
   Route,
 } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Chat from './containers/Chat.jsx';
 import Login from './containers/Login.jsx';
 import NotFound from './containers/NotFound.jsx';
 import Navs from './components/Navs.jsx';
-import AuthContext from './contexts/AuthContext.js';
 
 export default () => {
-  const [isAuthorized, setIsAuthrized] = useState(!!localStorage.getItem('token'));
-
-  const loginUser = (token) => {
-    setIsAuthrized(true);
-    localStorage.setItem('token', token);
-    window.location.replace('/');
-  };
-
-  const logoutUser = () => {
-    setIsAuthrized(false);
-    localStorage.removeItem('token');
-    window.location.replace('/login');
-  };
-
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
-  const authContextValue = { loginUser, logoutUser, isAuthorized };
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!isAuthorized && window.location.pathname !== '/login') {
+    const currentLocation = window.location.pathname;
+    if (!isLoggedIn && currentLocation === '/') {
       window.location.replace('/login');
     }
-  }, []);
+    if (isLoggedIn && currentLocation === '/login') {
+      window.location.replace('/');
+    }
+  }, [isLoggedIn]);
 
-  const routes = isAuthorized
+  const routes = isLoggedIn
     ? (
       <Routes>
         <Route path="/" element={<Chat />} />
-        <Route path="login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     )
     : (
       <Routes>
-        <Route path="login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     );
 
   return (
-    <AuthContext.Provider value={authContextValue}>
-      <div className="d-flex flex-column h-100">
-        <Navs />
-        <BrowserRouter>
-          {routes}
-        </BrowserRouter>
-      </div>
-    </AuthContext.Provider>
+    <div className="d-flex flex-column h-100">
+      <Navs />
+      <BrowserRouter>
+        {routes}
+      </BrowserRouter>
+    </div>
   );
 };

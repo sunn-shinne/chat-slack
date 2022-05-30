@@ -1,33 +1,43 @@
-import React, { useRef, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
-import axios from 'axios';
 import cn from 'classnames';
-import AuthContext from '../contexts/AuthContext.js';
+import { loginUser } from '../slices/authSlice.js';
+import { clearMessage, setMessage } from '../slices/messageSlice.js';
 
 const LoginForm = ({ layoutClass }) => {
-  const [errors, setErrors] = React.useState({});
-  const target = useRef(null);
-  const { loginUser } = useContext(AuthContext);
+  const [isValid, setIsValid] = useState(true);
+  const { message } = useSelector((state) => state.message);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(clearMessage());
+  }, [dispatch]);
+
+  const handleLogin = (formValue) => {
+    dispatch(loginUser(formValue))
+      .unwrap()
+      .then(() => {
+        setIsValid(true);
+        dispatch(clearMessage());
+      })
+      .catch(() => {
+        setIsValid(false);
+        dispatch(setMessage('Неверные имя пользователя или пароль'));
+      });
+  };
 
   const formik = useFormik({
     initialValues: {
       username: '',
       password: '',
     },
-    onSubmit: async (values) => {
-      try {
-        const response = await axios.post('/api/v1/login', values);
-        loginUser(response.data.token);
-        setErrors({});
-      } catch (e) {
-        setErrors({ request: 'Неверные имя пользователя или пароль' });
-      }
-    },
+    onSubmit: handleLogin,
   });
 
-  const usernameClass = cn('form-control', errors.request && 'is-invalid');
-  const passwordClass = cn('form-control', errors.request && 'is-invalid');
+  const usernameClass = cn('form-control', !isValid && 'is-invalid');
+  const passwordClass = cn('form-control', !isValid && 'is-invalid');
 
   return (
     <Form className={layoutClass} onSubmit={formik.handleSubmit}>
@@ -61,12 +71,12 @@ const LoginForm = ({ layoutClass }) => {
             autoComplete="off"
           />
           <Form.Control.Feedback type="invalid" tooltip>
-            {errors.request}
+            {message}
           </Form.Control.Feedback>
         </Form.FloatingLabel>
       </Form.Group>
 
-      <Button ref={target} type="submit" variant="outline-primary" className="w-100 mb-3">
+      <Button type="submit" variant="outline-primary" className="w-100 mb-3">
         Войти
       </Button>
 
