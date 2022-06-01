@@ -5,7 +5,7 @@ import {
   Route,
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Chat from './containers/Chat.jsx';
+import Main from './containers/Main.jsx';
 import Login from './containers/Login.jsx';
 import NotFound from './containers/NotFound.jsx';
 import Navs from './components/Navs.jsx';
@@ -26,7 +26,7 @@ export default () => {
   const routes = isLoggedIn
     ? (
       <Routes>
-        <Route path="/" element={<Chat />} />
+        <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

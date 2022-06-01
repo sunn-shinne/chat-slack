@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import cn from 'classnames';
 import { loginUser } from '../slices/authSlice.js';
-import { clearMessage, setMessage } from '../slices/messageSlice.js';
+import { clearFeedback, setFeedback } from '../slices/feedbackSlice.js';
 
 const LoginForm = ({ layoutClass }) => {
   const [isValid, setIsValid] = useState(true);
-  const { message } = useSelector((state) => state.message);
+  const { feedback } = useSelector((state) => state.feedback);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(clearMessage());
+    dispatch(clearFeedback());
   }, [dispatch]);
 
   const handleLogin = (formValue) => {
@@ -20,11 +20,11 @@ const LoginForm = ({ layoutClass }) => {
       .unwrap()
       .then(() => {
         setIsValid(true);
-        dispatch(clearMessage());
+        dispatch(clearFeedback());
       })
       .catch(() => {
         setIsValid(false);
-        dispatch(setMessage('Неверные имя пользователя или пароль'));
+        dispatch(setFeedback('Неверные имя пользователя или пароль'));
       });
   };
 
@@ -71,7 +71,7 @@ const LoginForm = ({ layoutClass }) => {
             autoComplete="off"
           />
           <Form.Control.Feedback type="invalid" tooltip>
-            {message}
+            {feedback}
           </Form.Control.Feedback>
         </Form.FloatingLabel>
       </Form.Group>
