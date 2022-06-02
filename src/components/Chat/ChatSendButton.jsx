@@ -1,12 +1,11 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
-const SendButton = ({ handleClick, isDisabled }) => (
+const SendButton = ({ isDisabled }) => (
   <Button
     type="submit"
     className="btn-group-vertical"
     variant="light"
-    onClick={handleClick}
     disabled={isDisabled}
   >
     <svg

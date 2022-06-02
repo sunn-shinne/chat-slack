@@ -13,7 +13,10 @@ export const loginUser = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk(
   'auth/logoutUser',
-  () => localStorage.removeItem('token'),
+  () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+  },
 );
 
 const initialState = {
@@ -29,6 +32,7 @@ const loginFormSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         const { token, username } = action.payload;
         localStorage.setItem('token', token);
+        localStorage.setItem('username', username);
         state.username = username;
         state.isLoggedIn = true;
       })

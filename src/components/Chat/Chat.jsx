@@ -10,15 +10,13 @@ const Chat = () => {
   const messages = useSelector(messagesSelectors.selectAll);
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);
   const channels = useSelector(channelsSelectors.selectAll);
-
-  const currentMessages = messages.filter((item) => item.channelId === currentChannelId);
   const channelName = channels.find((item) => item.id === currentChannelId)?.name;
 
   return (
     <div className="col p-0 h-100">
       <div className="d-flex flex-column h-100">
-        <ChatHeader name={channelName} messageCount={currentMessages.length} />
-        <ChatMessages />
+        <ChatHeader name={channelName} messageCount={messages.length} />
+        <ChatMessages channelId={currentChannelId} />
         <ChatInput />
       </div>
     </div>

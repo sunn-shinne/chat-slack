@@ -4,21 +4,18 @@ import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
 import '../assets/application.scss';
 
-import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-
-import App from './App.js';
-import store from './slices/index.js';
+import { io } from 'socket.io-client';
+import init from './init.jsx';
 
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
 
-const app = (
-  <Provider store={store}>
-    <App />
-  </Provider>
-);
+const runApp = () => {
+  const socket = io();
+  const app = init(socket);
+  ReactDOM.render(app, document.getElementById('chat'));
+};
 
-ReactDOM.render(app, document.getElementById('chat'));
+runApp();
