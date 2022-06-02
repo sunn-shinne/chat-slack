@@ -2,24 +2,22 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import routes from '../routes.js';
-import Chat from '../components/Chat/Chat.jsx';
-import Channels from '../components/Channels/Channels.jsx';
+import Chat from './Chat/Chat.jsx';
+import Channels from './Channels/Channels.jsx';
 
 import { setChannels } from '../slices/channelsSlice.js';
 import { setMessages } from '../slices/messagesSlice.js';
-
-const axiosInstance = axios.create({
-  headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-});
+import useAuth from '../hooks/useAuth.js';
 
 const Main = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const { getAuthHeader } = useAuth();
   const dispatch = useDispatch();
 
   useEffect(() => {
     setIsLoading(true);
     const fetchData = async () => {
-      const { data } = await axiosInstance.get(routes.getData());
+      const { data } = await axios.get(routes.getData(), { headers: getAuthHeader() });
       const channels = {
         entities: data.channels,
         ids: Object.keys(data.channels),

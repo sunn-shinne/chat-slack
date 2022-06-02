@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import loginImg from '../../assets/loginImg.js';
-import LoginForm from '../components/LoginForm.jsx';
+import loginImg from '../../../assets/loginImg.js';
+import LoginForm from './LoginForm.jsx';
 
 const Login = () => (
   <div className="container-fluid h-100">

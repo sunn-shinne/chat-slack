@@ -1,4 +1,4 @@
-# RSS-aggregator
+# Chat-slack
 
 [![Actions Status](https://github.com/sunn-shinne/frontend-project-lvl4/workflows/hexlet-check/badge.svg)](https://github.com/sunn-shinne/frontend-project-lvl4/actions)
 [![Actions Status](https://github.com/sunn-shinne/frontend-project-lvl4/workflows/test-and-lint/badge.svg)](https://github.com/sunn-shinne/frontend-project-lvl4/actions)

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ChatContext } from '../contexts/ChatApiProvider.jsx';
+import { ChatContext } from '../contexts/ChatApiProvider.js';
 
 const useChat = () => useContext(ChatContext);
 

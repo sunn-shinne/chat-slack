@@ -4,14 +4,27 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import Main from './containers/Main.jsx';
-import Login from './containers/Login.jsx';
-import NotFound from './containers/NotFound.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Main from './components/Main.jsx';
+import Login from './components/Auth/Login.jsx';
+import NotFound from './components/NotFound.jsx';
 import Navs from './components/Navs.jsx';
+import useAuth from './hooks/useAuth.js';
+import { setConnectionError } from './slices/uiSlice.js';
 
 export default () => {
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { isLoggedIn } = useAuth();
+  const { connectionError } = useSelector((state) => state.ui);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (connectionError) {
+      toast.error('Ошибка соединения');
+      dispatch(setConnectionError());
+    }
+  }, [connectionError]);
 
   useEffect(() => {
     const currentLocation = window.location.pathname;
@@ -44,6 +57,7 @@ export default () => {
       <BrowserRouter>
         {routes}
       </BrowserRouter>
+      <ToastContainer />
     </div>
   );
 };

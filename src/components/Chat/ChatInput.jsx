@@ -3,10 +3,12 @@ import { useSelector } from 'react-redux';
 import { Form, InputGroup } from 'react-bootstrap';
 import SendButton from './ChatSendButton.jsx';
 import useChat from '../../hooks/useChat.js';
+import useAuth from '../../hooks/useAuth.js';
 
 const ChatInput = () => {
   const [text, setText] = useState('');
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);
+  const { getUsername } = useAuth();
   const { sendMessage } = useChat();
 
   const handleChange = (e) => setText(e.target.value);
@@ -14,7 +16,7 @@ const ChatInput = () => {
     e.preventDefault();
     sendMessage({
       channelId: currentChannelId,
-      senderName: localStorage.getItem('username'),
+      senderName: getUsername(),
       text,
     });
     setText('');

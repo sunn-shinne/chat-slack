@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
-const feedbackSlice = createSlice({
+const uiSlice = createSlice({
   name: 'feedback',
-  initialState: { feedback: null },
+  initialState: { feedback: null, connectionError: false },
   reducers: {
     setFeedback: (state, action) => {
       state.feedback = action.payload;
@@ -11,9 +11,16 @@ const feedbackSlice = createSlice({
     clearFeedback: (state) => {
       state.feedback = null;
     },
+    setConnectionError: (state) => {
+      state.connectionError = !state.connectionError;
+    },
   },
 });
 
-const { reducer, actions } = feedbackSlice;
-export const { setFeedback, clearFeedback } = actions;
+const { reducer, actions } = uiSlice;
+export const {
+  setFeedback,
+  clearFeedback,
+  setConnectionError,
+} = actions;
 export default reducer;

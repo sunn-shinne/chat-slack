@@ -3,12 +3,13 @@ import { Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import cn from 'classnames';
-import { loginUser } from '../slices/authSlice.js';
-import { clearFeedback, setFeedback } from '../slices/feedbackSlice.js';
+import { clearFeedback, setFeedback } from '../../slices/uiSlice.js';
+import useAuth from '../../hooks/useAuth.js';
 
 const LoginForm = ({ layoutClass }) => {
   const [isValid, setIsValid] = useState(true);
-  const { feedback } = useSelector((state) => state.feedback);
+  const { loginUser } = useAuth();
+  const { feedback } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,8 +17,7 @@ const LoginForm = ({ layoutClass }) => {
   }, [dispatch]);
 
   const handleLogin = (formValue) => {
-    dispatch(loginUser(formValue))
-      .unwrap()
+    loginUser(formValue)
       .then(() => {
         setIsValid(true);
         dispatch(clearFeedback());

@@ -1,14 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './authSlice.js';
-import feedbackReducer from './feedbackSlice.js';
 import messagesReducer from './messagesSlice.js';
 import channelsReducer from './channelsSlice.js';
+import uiReducer from './uiSlice.js';
 
 export default configureStore({
   reducer: {
-    auth: authReducer,
-    feedback: feedbackReducer,
     messages: messagesReducer,
     channels: channelsReducer,
+    ui: uiReducer,
   },
 });

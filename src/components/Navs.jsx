@@ -1,12 +1,10 @@
 import React from 'react';
 import { Navbar, Container, Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '../slices/authSlice.js';
+import useAuth from '../hooks/useAuth.js';
 
 const Navs = () => {
-  const { isLoggedIn } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-  const handleLogout = () => dispatch(logoutUser());
+  const { isLoggedIn, logoutUser } = useAuth();
+  const handleLogout = () => logoutUser();
 
   return (
     <Navbar bg="white">
