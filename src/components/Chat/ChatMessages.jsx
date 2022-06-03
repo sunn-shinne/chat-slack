@@ -5,7 +5,7 @@ import ChatMessage from './ChatMessage.jsx';
 const ChatMessages = ({ messages }) => {
   const renderMessages = (msgs) => msgs
     .map(({ senderName, text }) => (
-      <ChatMessage key={_.uniqueId} senderName={senderName} text={text} />
+      <ChatMessage key={_.uniqueId()} senderName={senderName} text={text} />
     ));
 
   return (
