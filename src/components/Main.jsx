@@ -7,6 +7,8 @@ import Channels from './Channels/Channels.jsx';
 
 import { setChannels } from '../slices/channelsSlice.js';
 import { setMessages } from '../slices/messagesSlice.js';
+import { setCurrentChannel } from '../slices/uiSlice.js';
+
 import useAuth from '../hooks/useAuth.js';
 
 const Main = () => {
@@ -21,7 +23,6 @@ const Main = () => {
       const channels = {
         entities: data.channels,
         ids: Object.keys(data.channels),
-        currentChannelId: data.currentChannelId,
       };
       const messages = {
         entities: data.messages,
@@ -29,6 +30,7 @@ const Main = () => {
       };
       dispatch(setChannels(channels));
       dispatch(setMessages(messages));
+      dispatch(setCurrentChannel(data.currentChannelId));
       setIsLoading(false);
     };
     fetchData();

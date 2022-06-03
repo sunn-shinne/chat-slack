@@ -7,7 +7,7 @@ import useAuth from '../../hooks/useAuth.js';
 
 const ChatInput = () => {
   const [text, setText] = useState('');
-  const currentChannelId = useSelector((state) => state.channels.currentChannelId);
+  const { currentChannelId } = useSelector((state) => state.ui);
   const { getUsername } = useAuth();
   const { sendMessage } = useChat();
 

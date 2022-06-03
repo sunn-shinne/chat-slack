@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { setCurrentChannel } from '../../slices/channelsSlice.js';
+import { setCurrentChannel } from '../../slices/uiSlice.js';
 
 const ChannelsListItem = ({
   id,
@@ -13,7 +13,7 @@ const ChannelsListItem = ({
 
   const btnClass = 'w-100 rounded-0 text-start';
   const buttonVariant = currentChannelId === id ? 'secondary' : 'light';
-  const handleClick = () => dispatch(setCurrentChannel({ id }));
+  const handleClick = () => dispatch(setCurrentChannel(id));
 
   const channelBtn = (
     <Button className={btnClass} variant={buttonVariant} onClick={handleClick}>

@@ -9,7 +9,7 @@ import ChatInput from './ChatInput.jsx';
 const Chat = () => {
   const messages = useSelector(messagesSelectors.selectAll);
   const channels = useSelector(channelsSelectors.selectAll);
-  const currentChannelId = useSelector((state) => state.channels.currentChannelId);
+  const { currentChannelId } = useSelector((state) => state.ui);
 
   const channelName = channels.find((item) => item.id === currentChannelId)?.name;
   const currentMessages = messages.filter((item) => item.channelId === currentChannelId);

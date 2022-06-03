@@ -6,7 +6,7 @@ import ChannelsListItem from './ChannelsListItem.jsx';
 
 const ChannelsList = () => {
   const channels = useSelector(selectors.selectAll);
-  const currentChannelId = useSelector((state) => state.channels.currentChannelId);
+  const { currentChannelId } = useSelector((state) => state.ui);
 
   const renderChannels = () => channels.map(({ id, name, removable }) => (
     <ChannelsListItem
