@@ -2,6 +2,10 @@
   "name": "@hexlet/code",
   "version": "0.0.1",
   "description": "chat application (slack)",
+  "engines": {
+    "node": "17.x",
+    "npm": "8.x"
+  },
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -13,7 +17,6 @@
   "jest": {
     "transform": {}
   },
-  "proxy": "http://localhost:5000",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sunn-shinne/frontend-project-lvl4.git"
@@ -51,8 +54,8 @@
     "react-router-dom": "^6.3.0",
     "react-toastify": "^9.0.3",
     "regenerator-runtime": "^0.13.9",
-    "socket.io": "^4.5.1",
     "socket.io-client": "^4.5.1",
+    "uninstall": "^0.0.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
