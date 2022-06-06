@@ -5,13 +5,16 @@ import App from './App.jsx';
 import store from './slices/index.js';
 import ChatApiProvider from './contexts/ChatApiProvider.js';
 import AuthApiProvider from './contexts/AuthApiProvider.js';
+import ModalApiProvider from './contexts/ModalApiProvider.js';
 
 export default (socket) => (
   <Provider store={store}>
     <AuthApiProvider>
-      <ChatApiProvider socket={socket}>
-        <App />
-      </ChatApiProvider>
+      <ModalApiProvider>
+        <ChatApiProvider socket={socket}>
+          <App />
+        </ChatApiProvider>
+      </ModalApiProvider>
     </AuthApiProvider>
   </Provider>
 );

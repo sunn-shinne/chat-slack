@@ -3,7 +3,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const uiSlice = createSlice({
   name: 'feedback',
-  initialState: { feedback: null, connectionError: false, currentChannelId: null },
+  initialState: {
+    feedback: null,
+    connectionError: false,
+    currentChannelId: null,
+    currentModalName: null,
+  },
   reducers: {
     setFeedback: (state, action) => {
       state.feedback = action.payload;
@@ -17,6 +22,9 @@ const uiSlice = createSlice({
     setCurrentChannel: (state, action) => {
       state.currentChannelId = action.payload;
     },
+    setCurrentModalName: (state, action) => {
+      state.currentModalName = action.payload;
+    },
   },
 });
 
@@ -26,5 +34,6 @@ export const {
   clearFeedback,
   setConnectionError,
   setCurrentChannel,
+  setCurrentModalName,
 } = actions;
 export default reducer;

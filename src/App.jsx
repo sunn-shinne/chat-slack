@@ -13,10 +13,13 @@ import NotFound from './components/NotFound.jsx';
 import Navs from './components/Navs.jsx';
 import useAuth from './hooks/useAuth.js';
 import { setConnectionError } from './slices/uiSlice.js';
+import useModal from './hooks/useModal.js';
 
 export default () => {
   const { isLoggedIn } = useAuth();
+  const { renderModal } = useModal();
   const { connectionError } = useSelector((state) => state.ui);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,6 +61,7 @@ export default () => {
         {routes}
       </BrowserRouter>
       <ToastContainer />
+      {renderModal()}
     </div>
   );
 };

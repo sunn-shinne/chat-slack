@@ -27,7 +27,7 @@ const ChannelsListItem = ({
       {
         removable
           ? (
-            <Dropdown as={ButtonGroup}>
+            <Dropdown as={ButtonGroup} className="d-flex">
               {channelBtn}
               <Dropdown.Toggle split variant={buttonVariant} />
               <Dropdown.Menu>
