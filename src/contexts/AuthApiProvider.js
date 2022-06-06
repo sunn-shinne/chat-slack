@@ -18,6 +18,7 @@ const AuthApiProvider = ({ children }) => {
       setIsLoggedIn(true);
     } catch (e) {
       setIsLoggedIn(false);
+      throw e;
     }
   };
 

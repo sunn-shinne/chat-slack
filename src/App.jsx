@@ -12,7 +12,7 @@ import Login from './components/Auth/Login.jsx';
 import NotFound from './components/NotFound.jsx';
 import Navs from './components/Navs.jsx';
 import useAuth from './hooks/useAuth.js';
-import { setConnectionError } from './slices/uiSlice.js';
+import { setShowConnectionError } from './slices/uiSlice.js';
 import useModal from './hooks/useModal.js';
 
 export default () => {
@@ -25,7 +25,7 @@ export default () => {
   useEffect(() => {
     if (connectionError) {
       toast.error('Ошибка соединения');
-      dispatch(setConnectionError());
+      dispatch(setShowConnectionError());
     }
   }, [connectionError]);
 

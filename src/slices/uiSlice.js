@@ -5,19 +5,13 @@ const uiSlice = createSlice({
   name: 'feedback',
   initialState: {
     feedback: null,
-    connectionError: false,
+    showConnectionError: false,
     currentChannelId: null,
     currentModalName: null,
   },
   reducers: {
-    setFeedback: (state, action) => {
-      state.feedback = action.payload;
-    },
-    clearFeedback: (state) => {
-      state.feedback = null;
-    },
-    setConnectionError: (state) => {
-      state.connectionError = !state.connectionError;
+    setShowConnectionError: (state) => {
+      state.connectionError = !state.showConnectionError;
     },
     setCurrentChannel: (state, action) => {
       state.currentChannelId = action.payload;
@@ -32,7 +26,7 @@ const { reducer, actions } = uiSlice;
 export const {
   setFeedback,
   clearFeedback,
-  setConnectionError,
+  setShowConnectionError,
   setCurrentChannel,
   setCurrentModalName,
 } = actions;

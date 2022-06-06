@@ -1,31 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import cn from 'classnames';
-import { clearFeedback, setFeedback } from '../../slices/uiSlice.js';
 import useAuth from '../../hooks/useAuth.js';
 
 const LoginForm = ({ layoutClass }) => {
   const [isValid, setIsValid] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
   const { loginUser } = useAuth();
-  const { feedback } = useSelector((state) => state.ui);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(clearFeedback());
-  }, [dispatch]);
-
-  const handleLogin = (formValue) => {
-    loginUser(formValue)
-      .then(() => {
-        setIsValid(true);
-        dispatch(clearFeedback());
-      })
-      .catch(() => {
-        setIsValid(false);
-        dispatch(setFeedback('Неверные имя пользователя или пароль'));
-      });
+  const handleLogin = async (formValue) => {
+    try {
+      setIsValid(true);
+      await loginUser(formValue);
+    } catch (e) {
+      console.log(e.code);
+      setIsValid(false);
+      setErrorMessage('Неверные имя пользователя или пароль');
+    }
   };
 
   const formik = useFormik({
@@ -40,7 +32,7 @@ const LoginForm = ({ layoutClass }) => {
   const passwordClass = cn('form-control', !isValid && 'is-invalid');
 
   return (
-    <Form className={layoutClass} onSubmit={formik.handleSubmit}>
+    <Form className={layoutClass} onSubmit={formik.handleSubmit} autoComplete="off">
       <h1 className="text-center mb-4">Войти</h1>
 
       <Form.Group className="mb-3" controlId="formUsername">
@@ -53,7 +45,6 @@ const LoginForm = ({ layoutClass }) => {
             className={usernameClass}
             value={formik.values.username}
             onChange={formik.handleChange}
-            autoComplete="off"
           />
         </Form.FloatingLabel>
       </Form.Group>
@@ -68,10 +59,9 @@ const LoginForm = ({ layoutClass }) => {
             className={passwordClass}
             value={formik.values.password}
             onChange={formik.handleChange}
-            autoComplete="off"
           />
           <Form.Control.Feedback type="invalid" tooltip>
-            {feedback}
+            {errorMessage}
           </Form.Control.Feedback>
         </Form.FloatingLabel>
       </Form.Group>

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, { createContext } from 'react';
 import { useDispatch } from 'react-redux';
-import { setConnectionError } from '../slices/uiSlice.js';
+import { setShowConnectionError } from '../slices/uiSlice.js';
 import { addMessage } from '../slices/messagesSlice.js';
 import { addChannel } from '../slices/channelsSlice.js';
 
@@ -12,7 +12,7 @@ const ChatApiProvider = ({ socket, children }) => {
 
   const sendMessage = (message) => socket.emit('newMessage', message, (response) => {
     if (response.status !== 'ok') {
-      dispatch(setConnectionError());
+      dispatch(setShowConnectionError());
     }
   });
 
@@ -22,7 +22,7 @@ const ChatApiProvider = ({ socket, children }) => {
 
   const addNewChannel = (channel) => socket.emit('newChannel', channel, (response) => {
     if (response.status !== 'ok') {
-      dispatch(setConnectionError());
+      dispatch(setShowConnectionError());
     }
   });
 
