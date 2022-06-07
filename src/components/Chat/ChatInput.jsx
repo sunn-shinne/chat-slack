@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Form, InputGroup } from 'react-bootstrap';
 import SendButton from './ChatSendButton.jsx';
@@ -10,6 +10,11 @@ const ChatInput = () => {
   const { currentChannelId } = useSelector((state) => state.ui);
   const { getUsername } = useAuth();
   const { sendMessage } = useChat();
+
+  const inputEl = useRef(null);
+  useEffect(() => {
+    inputEl.current.focus();
+  }, [currentChannelId]);
 
   const handleChange = (e) => setText(e.target.value);
   const handleSubmit = (e) => {
@@ -38,6 +43,7 @@ const ChatInput = () => {
               aria-label="Новое сообщение"
               onChange={handleChange}
               value={text}
+              ref={inputEl}
             />
             <SendButton
               isDisabled={text.length === 0}

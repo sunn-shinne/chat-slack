@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { channelRemoved } from './channelsSlice.js';
+import { channelRemoved, channelAdded } from './channelsSlice.js';
 
 const uiSlice = createSlice({
   name: 'feedback',
@@ -15,22 +15,19 @@ const uiSlice = createSlice({
     setCurrentChannel: (state, action) => {
       state.currentChannelId = action.payload;
     },
-    extraReducers: (builder) => {
-      builder.addCase(channelRemoved, (state, action) => {
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(channelRemoved, (state, action) => {
         if (action.payload === state.currentChannelId) {
           state.currentChannelId = 1;
         }
+      })
+      .addCase(channelAdded, (state, action) => {
+        state.currentChannelId = action.payload.id;
       });
-    },
   },
 });
 
-const { reducer, actions } = uiSlice;
-export const {
-  setFeedback,
-  clearFeedback,
-  setShowConnectionError,
-  setCurrentChannel,
-  setCurrentModalName,
-} = actions;
-export default reducer;
+export const { setCurrentChannel } = uiSlice.actions;
+export default uiSlice.reducer;

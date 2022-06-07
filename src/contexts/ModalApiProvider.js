@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, { createContext, useState } from 'react';
-import getModal from '../components/modals/index.js';
+import getModal from '../components/Modals/index.js';
 
 export const ModalContext = createContext({});
 

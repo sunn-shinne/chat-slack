@@ -42,18 +42,18 @@ const Main = () => {
     fetchData();
   }, []);
 
-  const content = isLoading
-    ? <div className="card-body"><p className="card-title">Loading</p></div>
-    : (
-      <div className="row h-100 bg-white flex-md-row">
-        <Channels />
-        <Chat />
-      </div>
-    );
-
   return (
     <div className="container h-100 my-4 overflow-hidden rounded shadow">
-      {content}
+      {
+        isLoading
+          ? <div className="card-body"><p className="card-title">Loading</p></div>
+          : (
+            <div className="row h-100 bg-white flex-md-row">
+              <Channels />
+              <Chat />
+            </div>
+          )
+      }
     </div>
   );
 };

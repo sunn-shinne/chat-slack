@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, { createContext } from 'react';
+import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { setShowConnectionError, setCurrentChannel } from '../slices/uiSlice.js';
 import { addMessage } from '../slices/messagesSlice.js';
 import { channelAdded, channelUpdated, channelRemoved } from '../slices/channelsSlice.js';
 
@@ -12,7 +12,7 @@ const ChatApiProvider = ({ socket, children }) => {
 
   const sendMessage = (message) => socket.emit('newMessage', message, (response) => {
     if (response.status !== 'ok') {
-      dispatch(setShowConnectionError());
+      toast.error('Ошибка соединения');
     }
   });
 
@@ -22,18 +22,17 @@ const ChatApiProvider = ({ socket, children }) => {
 
   const addNewChannel = (channel) => socket.emit('newChannel', channel, (response) => {
     if (response.status !== 'ok') {
-      dispatch(setShowConnectionError());
+      toast.error('Ошибка соединения');
     }
   });
 
   socket.on('newChannel', (channel) => {
     dispatch(channelAdded(channel));
-    dispatch(setCurrentChannel(channel.id));
   });
 
   const renameChannel = (data) => socket.emit('renameChannel', data, (response) => {
     if (response.status !== 'ok') {
-      dispatch(setShowConnectionError());
+      toast.error('Ошибка соединения');
     }
   });
 
@@ -44,13 +43,12 @@ const ChatApiProvider = ({ socket, children }) => {
 
   const removeChannel = (id) => socket.emit('removeChannel', { id }, (response) => {
     if (response.status !== 'ok') {
-      dispatch(setShowConnectionError());
+      toast.error('Ошибка соединения');
     }
   });
 
   socket.on('removeChannel', ({ id }) => {
     dispatch(channelRemoved(id));
-    dispatch(setCurrentChannel(1));
   });
 
   const chatApi = {
