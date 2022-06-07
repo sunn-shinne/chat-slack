@@ -8,12 +8,12 @@ import { toast } from 'react-toastify';
 import { selectors } from '../../slices/channelsSlice.js';
 import useChat from '../../hooks/useChat.js';
 
-const AddChannelModal = ({ onClose, isShown }) => {
+const RenameChannelModal = ({ onClose, isShown, params }) => {
   const [isValid, setIsValid] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { addNewChannel } = useChat();
+  const { renameChannel } = useChat();
   const channels = useSelector(selectors.selectAll);
   const channelsNames = channels.map((channel) => channel.name);
 
@@ -28,14 +28,15 @@ const AddChannelModal = ({ onClose, isShown }) => {
   });
 
   const formik = useFormik({
-    initialValues: { name: '' },
+    initialValues: { name: params.name },
     onSubmit: async (values) => {
       try {
         setIsLoading(true);
-        setIsValid(true);
         await validationSchema.validate(values);
-        addNewChannel(values);
-        toast.success('Канал создан');
+        renameChannel({ name: values.name, id: params.id });
+        setIsValid(true);
+        setErrorMessage(null);
+        toast.success('Канал переименован');
         formik.resetForm();
         onClose();
       } catch (e) {
@@ -49,22 +50,22 @@ const AddChannelModal = ({ onClose, isShown }) => {
   });
 
   useEffect(() => {
-    inputEl.current.focus();
+    inputEl.current.select();
   }, [inputEl]);
 
   return (
     <Modal
-      show={isShown('adding')}
+      show={isShown('renaming')}
       onHide={onClose}
     >
       <Modal.Header closeButton>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>Переименовать канал</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <Form autoComplete="off" onSubmit={formik.handleSubmit}>
           <Form.Group className="mb-3">
-            <Form.Label className="visually-hidden">Имя канала</Form.Label>
+            <Form.Label className="visually-hidden">Новое имя канала</Form.Label>
             <Form.Control
               id="name"
               type="name"
@@ -88,4 +89,4 @@ const AddChannelModal = ({ onClose, isShown }) => {
   );
 };
 
-export default AddChannelModal;
+export default RenameChannelModal;

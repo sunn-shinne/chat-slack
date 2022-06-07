@@ -3,13 +3,13 @@ import ChannelsAddBtn from './ChannelsAddBtn.jsx';
 import useModal from '../../hooks/useModal.js';
 
 const ChannelsHeader = () => {
-  const { setModalName } = useModal();
-  const openModal = () => setModalName('adding');
+  const { setModal } = useModal();
+  const openAddChannelModal = () => setModal('adding');
 
   return (
     <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
       <span>Каналы</span>
-      <ChannelsAddBtn handleClick={openModal} />
+      <ChannelsAddBtn handleClick={openAddChannelModal} />
     </div>
   );
 };

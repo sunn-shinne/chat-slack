@@ -5,20 +5,26 @@ import getModal from '../components/modals/index.js';
 export const ModalContext = createContext({});
 
 const ModalApiProvider = ({ children }) => {
-  const [currentModalName, setModalName] = useState(null);
+  const [modalName, setModalName] = useState(null);
+  const [modalParams, setModalParams] = useState({});
 
-  const isShown = (name) => currentModalName === name;
+  const setModal = (name, params = {}) => {
+    setModalName(name);
+    setModalParams(params);
+  };
+
+  const isShown = (name) => modalName === name;
 
   const renderModal = () => {
-    if (!currentModalName) {
+    if (!modalName) {
       return null;
     }
-    const Modal = getModal(currentModalName);
-    return <Modal onClose={() => setModalName(null)} isShown={isShown} />;
+    const Modal = getModal(modalName);
+    return <Modal onClose={() => setModalName(null)} isShown={isShown} params={modalParams} />;
   };
 
   const modalApi = {
-    setModalName,
+    setModal,
     renderModal,
   };
 

@@ -21,12 +21,18 @@ const Main = () => {
     const fetchData = async () => {
       const { data } = await axios.get(routes.getData(), { headers: getAuthHeader() });
       const channels = {
-        entities: data.channels,
-        ids: Object.keys(data.channels),
+        entities: data.channels.reduce((acc, item) => {
+          acc[item.id] = item;
+          return acc;
+        }, {}),
+        ids: data.channels.map((item) => item.id),
       };
       const messages = {
-        entities: data.messages,
-        ids: Object.keys(data.messages),
+        entities: data.messages.reduce((acc, item) => {
+          acc[item.id] = item;
+          return acc;
+        }, {}),
+        ids: data.messages.map((item) => item.id),
       };
       dispatch(setChannels(channels));
       dispatch(setMessages(messages));

@@ -16,10 +16,18 @@ const channelsSlice = createSlice({
       state.entities = entities;
       state.ids = ids;
     },
-    addChannel: channelsAdapter.addOne,
+    channelAdded: channelsAdapter.addOne,
+    channelUpdated: channelsAdapter.updateOne,
+    channelRemoved: channelsAdapter.removeOne,
   },
 });
 
 export const selectors = channelsAdapter.getSelectors((state) => state.channels);
-export const { setChannels, setCurrentChannel, addChannel } = channelsSlice.actions;
+export const {
+  setChannels,
+  setCurrentChannel,
+  channelAdded,
+  channelUpdated,
+  channelRemoved,
+} = channelsSlice.actions;
 export default channelsSlice.reducer;

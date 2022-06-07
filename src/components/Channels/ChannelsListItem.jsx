@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import useModal from '../../hooks/useModal.js';
 import { setCurrentChannel } from '../../slices/uiSlice.js';
 
 const ChannelsListItem = ({
@@ -13,10 +14,14 @@ const ChannelsListItem = ({
 
   const btnClass = 'w-100 rounded-0 text-start';
   const buttonVariant = currentChannelId === id ? 'secondary' : 'light';
-  const handleClick = () => dispatch(setCurrentChannel(id));
+  const chooseChannel = () => dispatch(setCurrentChannel(id));
+
+  const { setModal } = useModal();
+  const openRenameChannelModal = () => setModal('renaming', { name, id });
+  const openRemoveChannelModal = () => setModal('removing', { id });
 
   const channelBtn = (
-    <Button className={btnClass} variant={buttonVariant} onClick={handleClick}>
+    <Button className={btnClass} variant={buttonVariant} onClick={chooseChannel}>
       <span># </span>
       {name}
     </Button>
@@ -31,8 +36,8 @@ const ChannelsListItem = ({
               {channelBtn}
               <Dropdown.Toggle split variant={buttonVariant} />
               <Dropdown.Menu>
-                <Dropdown.Item>Удалить</Dropdown.Item>
-                <Dropdown.Item>Переименовать</Dropdown.Item>
+                <Dropdown.Item onClick={openRemoveChannelModal}>Удалить</Dropdown.Item>
+                <Dropdown.Item onClick={openRenameChannelModal}>Переименовать</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           )
