@@ -14,7 +14,6 @@ const LoginForm = ({ layoutClass }) => {
       setIsValid(true);
       await loginUser(formValue);
     } catch (e) {
-      console.log(e.code);
       setIsValid(false);
       setErrorMessage('Неверные имя пользователя или пароль');
     }

@@ -21,7 +21,7 @@ const Login = () => (
           <div className="card-footer text-center">
             <p className="m-3">
               Нет аккаунта?&nbsp;
-              <a href="/">Регистрация</a>
+              <a href="/signup">Регистрация</a>
             </p>
           </div>
         </div>

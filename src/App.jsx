@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Main from './components/Main.jsx';
 import Login from './components/Auth/Login.jsx';
+import Signup from './components/Auth/Signup.jsx';
 import NotFound from './components/NotFound.jsx';
 import Navs from './components/Navs.jsx';
 import useAuth from './hooks/useAuth.js';
@@ -18,7 +19,7 @@ export default () => {
     if (!isLoggedIn && currentLocation === '/') {
       window.location.replace('/login');
     }
-    if (isLoggedIn && currentLocation === '/login') {
+    if (isLoggedIn && (currentLocation === '/login' || currentLocation === '/signup')) {
       window.location.replace('/');
     }
   }, [isLoggedIn]);
@@ -28,12 +29,14 @@ export default () => {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     )
     : (
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     );

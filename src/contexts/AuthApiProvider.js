@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, { createContext, useState } from 'react';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 
 import routes from '../routes.js';
@@ -18,7 +19,25 @@ const AuthApiProvider = ({ children }) => {
       setIsLoggedIn(true);
     } catch (e) {
       setIsLoggedIn(false);
-      throw e;
+      if (e.code === 'ERR_BAD_REQUEST') {
+        throw e;
+      }
+      toast.error('Ошибка соединения');
+    }
+  };
+
+  const signupUser = async (values) => {
+    try {
+      const { data } = await axios.post(routes.signupPath(), values);
+      const newUser = JSON.stringify(data);
+      localStorage.setItem('user', newUser);
+      setIsLoggedIn(true);
+    } catch (e) {
+      setIsLoggedIn(false);
+      if (e.code === 'ERR_BAD_REQUEST') {
+        throw e;
+      }
+      toast.error('Ошибка соединения');
     }
   };
 
@@ -37,6 +56,7 @@ const AuthApiProvider = ({ children }) => {
   const authApi = {
     isLoggedIn,
     loginUser,
+    signupUser,
     logoutUser,
     getAuthHeader,
     getUsername,
