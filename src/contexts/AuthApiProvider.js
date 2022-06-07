@@ -16,6 +16,7 @@ const AuthApiProvider = ({ children }) => {
       const { data } = await axios.post(routes.loginPath(), values);
       const newUser = JSON.stringify(data);
       localStorage.setItem('user', newUser);
+      window.location.replace('/');
       setIsLoggedIn(true);
     } catch (e) {
       setIsLoggedIn(false);
@@ -31,6 +32,7 @@ const AuthApiProvider = ({ children }) => {
       const { data } = await axios.post(routes.signupPath(), values);
       const newUser = JSON.stringify(data);
       localStorage.setItem('user', newUser);
+      window.location.replace('/');
       setIsLoggedIn(true);
     } catch (e) {
       setIsLoggedIn(false);

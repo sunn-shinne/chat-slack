@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import App from './App.jsx';
+import App from './components/App.jsx';
 import store from './slices/index.js';
 import ChatApiProvider from './contexts/ChatApiProvider.js';
 import AuthApiProvider from './contexts/AuthApiProvider.js';
