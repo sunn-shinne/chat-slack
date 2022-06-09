@@ -21,31 +21,20 @@ export default () => {
     }
   }, [isLoggedIn]);
 
-  const routes = isLoggedIn
-    ? (
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    )
-    : (
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    );
-
   return (
     <div className="d-flex flex-column h-100">
       <Navs />
-      <BrowserRouter>
-        {routes}
-      </BrowserRouter>
       <ToastContainer />
       {renderModal()}
+
+      <BrowserRouter>
+        <Routes>
+          {isLoggedIn ? <Route path="/" element={<Main />} /> : null}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };

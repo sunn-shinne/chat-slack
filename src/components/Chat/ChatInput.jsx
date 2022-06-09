@@ -14,7 +14,7 @@ const ChatInput = () => {
   const inputEl = useRef(null);
   useEffect(() => {
     inputEl.current.focus();
-  }, [currentChannelId]);
+  }, [currentChannelId, null]);
 
   const handleChange = (e) => setText(e.target.value);
   const handleSubmit = (e) => {
