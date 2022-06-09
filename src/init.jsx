@@ -10,10 +10,8 @@ import ChatApiProvider from './contexts/ChatApiProvider.js';
 import AuthApiProvider from './contexts/AuthApiProvider.js';
 import ModalApiProvider from './contexts/ModalApiProvider.js';
 
-console.log(process.env);
 const rollbarConfig = {
-  accessToken: `${process.env.ROLLBAR_ACCESS_TOKEN}`,
-  // accessToken: '19a9170200ad44c28f9878dc1c824af6',
+  accessToken: `${process.env.REACT_APP_ROLLBAR_ACCESS_TOKEN}`,
   captureUncaught: true,
   captureUnhandledRejections: true,
   payload: {

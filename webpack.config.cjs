@@ -20,7 +20,6 @@ module.exports = {
     compress: true,
     port: 8090,
     host: '0.0.0.0',
-    // publicPath: '/assets/',
     historyApiFallback: true,
   },
   plugins: [
@@ -28,9 +27,6 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(process.env),
     }),
-    // new webpack.ProvidePlugin({
-    //   process: 'process/browser',
-    // }),
   ],
   module: {
     rules: [
