@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Dropdown, ButtonGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import useModal from '../../hooks/useModal.js';
 import { setCurrentChannel } from '../../slices/uiSlice.js';
@@ -11,6 +12,7 @@ const ChannelsListItem = ({
   currentChannelId,
 }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const btnClass = 'w-100 rounded-0 text-start';
   const buttonVariant = currentChannelId === id ? 'secondary' : 'light';
@@ -36,8 +38,8 @@ const ChannelsListItem = ({
               {channelBtn}
               <Dropdown.Toggle split variant={buttonVariant} />
               <Dropdown.Menu>
-                <Dropdown.Item onClick={openRemoveChannelModal}>Удалить</Dropdown.Item>
-                <Dropdown.Item onClick={openRenameChannelModal}>Переименовать</Dropdown.Item>
+                <Dropdown.Item onClick={openRemoveChannelModal}>{t('buttons.remove')}</Dropdown.Item>
+                <Dropdown.Item onClick={openRenameChannelModal}>{t('buttons.rename')}</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           )

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import cn from 'classnames';
 import useAuth from '../../hooks/useAuth.js';
 
 const LoginForm = ({ layoutClass }) => {
+  const { t } = useTranslation();
   const [isValid, setIsValid] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const { loginUser } = useAuth();
@@ -15,7 +17,7 @@ const LoginForm = ({ layoutClass }) => {
       await loginUser(formValue);
     } catch (e) {
       setIsValid(false);
-      setErrorMessage('Неверные имя пользователя или пароль');
+      setErrorMessage(t('errors.user_not_exists'));
     }
   };
 
@@ -32,14 +34,14 @@ const LoginForm = ({ layoutClass }) => {
 
   return (
     <Form className={layoutClass} onSubmit={formik.handleSubmit} autoComplete="off">
-      <h1 className="text-center mb-4">Войти</h1>
+      <h1 className="text-center mb-4">{t('login')}</h1>
 
       <Form.Group className="mb-3" controlId="formUsername">
-        <Form.FloatingLabel label="Ваш ник">
+        <Form.FloatingLabel label={t('fields.username')}>
           <Form.Control
             id="username"
             type="username"
-            placeholder="Ваш ник"
+            placeholder={t('fields.username')}
             required
             className={usernameClass}
             value={formik.values.username}
@@ -49,11 +51,11 @@ const LoginForm = ({ layoutClass }) => {
       </Form.Group>
 
       <Form.Group className="mb-5" controlId="formPassword">
-        <Form.FloatingLabel label="Пароль">
+        <Form.FloatingLabel label={t('fields.password')}>
           <Form.Control
             id="password"
             type="password"
-            placeholder="Пароль"
+            placeholder={t('fields.password')}
             required
             className={passwordClass}
             value={formik.values.password}
@@ -66,7 +68,7 @@ const LoginForm = ({ layoutClass }) => {
       </Form.Group>
 
       <Button type="submit" variant="outline-primary" className="w-100 mb-3">
-        Войти
+        {t('buttons.login')}
       </Button>
 
     </Form>

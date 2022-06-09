@@ -4,6 +4,9 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { addMessage } from '../slices/messagesSlice.js';
 import { channelAdded, channelUpdated, channelRemoved } from '../slices/channelsSlice.js';
+import i18next from '../i18n.js';
+
+const showConnectionError = () => toast.error(i18next.t('errors.connection'));
 
 export const ChatContext = createContext({});
 
@@ -12,7 +15,7 @@ const ChatApiProvider = ({ socket, children }) => {
 
   const sendMessage = (message) => socket.emit('newMessage', message, (response) => {
     if (response.status !== 'ok') {
-      toast.error('Ошибка соединения');
+      showConnectionError();
     }
   });
 
@@ -22,7 +25,7 @@ const ChatApiProvider = ({ socket, children }) => {
 
   const addNewChannel = (channel) => socket.emit('newChannel', channel, (response) => {
     if (response.status !== 'ok') {
-      toast.error('Ошибка соединения');
+      showConnectionError();
     }
   });
 
@@ -32,7 +35,7 @@ const ChatApiProvider = ({ socket, children }) => {
 
   const renameChannel = (data) => socket.emit('renameChannel', data, (response) => {
     if (response.status !== 'ok') {
-      toast.error('Ошибка соединения');
+      showConnectionError();
     }
   });
 
@@ -43,7 +46,7 @@ const ChatApiProvider = ({ socket, children }) => {
 
   const removeChannel = (id) => socket.emit('removeChannel', { id }, (response) => {
     if (response.status !== 'ok') {
-      toast.error('Ошибка соединения');
+      showConnectionError();
     }
   });
 

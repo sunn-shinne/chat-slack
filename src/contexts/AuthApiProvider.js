@@ -2,8 +2,10 @@
 import React, { createContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-
 import routes from '../routes.js';
+import i18next from '../i18n.js';
+
+const showConnectionError = () => toast.error(i18next.t('errors.connection'));
 
 export const AuthContext = createContext({});
 
@@ -23,7 +25,7 @@ const AuthApiProvider = ({ children }) => {
       if (e.code === 'ERR_BAD_REQUEST') {
         throw e;
       }
-      toast.error('Ошибка соединения');
+      showConnectionError();
     }
   };
 
@@ -39,7 +41,7 @@ const AuthApiProvider = ({ children }) => {
       if (e.code === 'ERR_BAD_REQUEST') {
         throw e;
       }
-      toast.error('Ошибка соединения');
+      showConnectionError();
     }
   };
 

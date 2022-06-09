@@ -1,33 +1,35 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { object, string, ref } from 'yup';
 import cn from 'classnames';
 import useAuth from '../../hooks/useAuth.js';
 
-const validationSchema = object({
-  username: string()
-    .required('Обязательное поле')
-    .min(3, 'От 3 до 20 символов')
-    .max(20, 'От 3 до 20 символов'),
-  password: string()
-    .required('Обязательное поле')
-    .min(6, 'Не менее 6 символов'),
-  confirmPassword: string()
-    .oneOf([ref('password')], 'Пароли должны совпадать'),
-});
-
 const SignupForm = ({ layoutClass }) => {
+  const { t } = useTranslation();
   const [isValid, setIsValid] = useState(true);
   const [errorMessage, setErrorMessage] = useState(true);
   const { signupUser } = useAuth();
+
+  const validationSchema = object({
+    username: string()
+      .required(t('errors.required'))
+      .min(3, t('errors.min_max'))
+      .max(20, t('errors.min_max')),
+    password: string()
+      .required(t('errors.required'))
+      .min(6, t('errors.min')),
+    confirmPassword: string()
+      .oneOf([ref('password')], t('errors.must_match')),
+  });
 
   const handleSignup = async (formValue) => {
     try {
       await signupUser(formValue);
     } catch (e) {
       setIsValid(false);
-      setErrorMessage('Такой пользователь уже существует');
+      setErrorMessage(t('errors.user_exists'));
     }
   };
 
@@ -47,10 +49,10 @@ const SignupForm = ({ layoutClass }) => {
 
   return (
     <Form className={layoutClass} onSubmit={formik.handleSubmit} autoComplete="off">
-      <h1 className="text-center mb-4">Регистрация</h1>
+      <h1 className="text-center mb-4">{t('signup')}</h1>
 
       <Form.Group className="mb-3" controlId="formUsername">
-        <Form.FloatingLabel label="Ваш ник">
+        <Form.FloatingLabel label={t('fields.username')}>
           <Form.Control
             id="username"
             type="username"
@@ -68,7 +70,7 @@ const SignupForm = ({ layoutClass }) => {
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formPassword">
-        <Form.FloatingLabel label="Пароль">
+        <Form.FloatingLabel label={t('fields.password')}>
           <Form.Control
             id="password"
             type="password"
@@ -86,11 +88,11 @@ const SignupForm = ({ layoutClass }) => {
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formConfirmPassword">
-        <Form.FloatingLabel label="Подтвердите пароль">
+        <Form.FloatingLabel label={t('fields.confirm_password')}>
           <Form.Control
             id="confirmPassword"
             type="password"
-            placeholder="Пароли должны совпадать"
+            placeholder={t('errors.must_match')}
             required
             className={getInpitClass('confirmPassword')}
             value={formik.values.confirmPassword}
@@ -104,7 +106,7 @@ const SignupForm = ({ layoutClass }) => {
       </Form.Group>
 
       <Button type="submit" variant="outline-primary" className="w-100 mb-3">
-        Зарегистрироваться
+        {t('buttons.signup')}
       </Button>
 
     </Form>
