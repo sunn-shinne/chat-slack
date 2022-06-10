@@ -49,9 +49,9 @@ export default {
       en: 'En',
     },
     login: 'Login',
-    signup: 'Registration',
+    signup: 'Create an account',
     channels: 'Channels',
-    have_no_account: 'No account?',
+    have_no_account: 'New to Chat Slack?',
     are_you_sure: 'Are you sure?',
   },
 };
