@@ -69,12 +69,13 @@ const AddChannelModal = ({ onClose, isShown }) => {
             <Form.Label className="visually-hidden">{t('fields.channel_name')}</Form.Label>
             <Form.Control
               id="name"
-              type="name"
-              required
+              name="name"
+              type="text"
               className={cn('form-control', !isValid && 'is-invalid')}
               value={formik.values.name}
               onChange={formik.handleChange}
               ref={inputEl}
+              required
             />
             <Form.Control.Feedback type="invalid">
               {errorMessage}

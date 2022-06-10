@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
+import filter from 'leo-profanity';
 import useModal from '../../hooks/useModal.js';
 import { setCurrentChannel } from '../../slices/uiSlice.js';
 
@@ -25,7 +26,7 @@ const ChannelsListItem = ({
   const channelBtn = (
     <Button className={btnClass} variant={buttonVariant} onClick={chooseChannel}>
       <span># </span>
-      {name}
+      {filter.clean(name)}
     </Button>
   );
 
@@ -36,7 +37,9 @@ const ChannelsListItem = ({
           ? (
             <Dropdown as={ButtonGroup} className="d-flex">
               {channelBtn}
-              <Dropdown.Toggle split variant={buttonVariant} />
+              <Dropdown.Toggle split variant={buttonVariant}>
+                <span className="visually-hidden">{t('buttons.manage_channel')}</span>
+              </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item onClick={openRemoveChannelModal}>{t('buttons.remove')}</Dropdown.Item>
                 <Dropdown.Item onClick={openRenameChannelModal}>{t('buttons.rename')}</Dropdown.Item>

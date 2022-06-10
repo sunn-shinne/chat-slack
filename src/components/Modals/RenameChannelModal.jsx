@@ -3,7 +3,6 @@ import { useFormik } from 'formik';
 import { object, string } from 'yup';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import cn from 'classnames';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { selectors } from '../../slices/channelsSlice.js';
@@ -67,15 +66,16 @@ const RenameChannelModal = ({ onClose, isShown, params }) => {
       <Modal.Body>
         <Form autoComplete="off" onSubmit={formik.handleSubmit}>
           <Form.Group className="mb-3">
-            <Form.Label className="visually-hidden">{t('fields.new_channel_name')}</Form.Label>
+            <Form.Label htmlFor="name" className="visually-hidden">{t('fields.channel_name')}</Form.Label>
             <Form.Control
               id="name"
-              type="name"
-              required
-              className={cn('form-control', !isValid && 'is-invalid')}
+              type="text"
+              name="name"
+              className={!isValid && 'is-invalid'}
               value={formik.values.name}
               onChange={formik.handleChange}
               ref={inputEl}
+              required
             />
             <Form.Control.Feedback type="invalid">
               {errorMessage}

@@ -11,6 +11,7 @@ export default {
       cancel: 'Отменить',
       login: 'Войти',
       signup: 'Зарегистрироваться',
+      manage_channel: 'Управление каналом',
     },
     errors: {
       required: 'Обязательное поле',
@@ -29,10 +30,10 @@ export default {
     },
     fields: {
       username: 'Ваш ник',
+      new_username: 'Имя пользователя',
       password: 'Пароль',
       confirm_password: 'Подтвердите пароль',
       channel_name: 'Имя канала',
-      new_channel_name: 'Новое имя канала',
     },
     messages: {
       messages_zero: '{{count}} сообщений',

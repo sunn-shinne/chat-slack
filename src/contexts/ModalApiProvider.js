@@ -7,13 +7,12 @@ export const ModalContext = createContext({});
 const ModalApiProvider = ({ children }) => {
   const [modalName, setModalName] = useState(null);
   const [modalParams, setModalParams] = useState({});
+  const isShown = (name) => modalName === name;
 
   const setModal = (name, params = {}) => {
     setModalName(name);
     setModalParams(params);
   };
-
-  const isShown = (name) => modalName === name;
 
   const renderModal = () => {
     if (!modalName) {
