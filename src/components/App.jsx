@@ -12,7 +12,7 @@ import Main from './Main.jsx';
 import Login from './Auth/Login.jsx';
 import Signup from './Auth/Signup.jsx';
 import NotFound from './NotFound.jsx';
-import Navs from './Navs.jsx';
+import Navs from './Navs/Navs.jsx';
 import useAuth from '../hooks/useAuth.js';
 import useModal from '../hooks/useModal.js';
 import routes from '../routes.js';

@@ -1,7 +1,7 @@
 export default {
   translation: {
     navs: {
-      brand: 'Hexlet Chat',
+      brand: 'Chat slack',
       logout: 'Выйти',
     },
     buttons: {
@@ -45,6 +45,10 @@ export default {
       add_channel: 'Добавить канал',
       remove_channel: 'Удалить канал',
       rename_channel: 'Переименовать канал',
+    },
+    languages: {
+      ru: 'Ru',
+      en: 'En',
     },
     login: 'Войти',
     signup: 'Регистрация',
