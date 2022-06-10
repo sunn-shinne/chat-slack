@@ -9,7 +9,7 @@ i18n
     resources: {
       ru, en,
     },
-    lng: 'en',
+    lng: 'ru',
     interpolation: {
       escapeValue: false,
     },
