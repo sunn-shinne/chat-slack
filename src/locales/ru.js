@@ -1,7 +1,7 @@
 export default {
   translation: {
     navs: {
-      brand: 'Chat slack',
+      brand: 'Hexlet Chat',
       logout: 'Выйти',
     },
     buttons: {

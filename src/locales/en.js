@@ -1,7 +1,7 @@
 export default {
   translation: {
     navs: {
-      brand: 'Chat slack',
+      brand: 'Hexlet Chat',
       logout: 'Logout',
     },
     buttons: {
@@ -51,7 +51,7 @@ export default {
     login: 'Login',
     signup: 'Create an account',
     channels: 'Channels',
-    have_no_account: 'New to Chat Slack?',
+    have_no_account: 'New to Hexlet Chat?',
     are_you_sure: 'Are you sure?',
   },
 };
