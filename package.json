@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "chat application (slack)",
   "engines": {
-    "node": "17.x",
+    "node": "18.x",
     "npm": "8.x"
   },
   "main": "index.js",
